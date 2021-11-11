@@ -7,13 +7,19 @@ body {
     font-size: 64px;
     color:black;
 }
+
 .logo-wrapper{
     background-color: #fff;
     display: flex;
+    
     justify-content: space-between;
     padding-left: 22px;
     padding-right: 22px;
+    position:fixed;
+
+    width: 100%;
 }
+
 .logo-uol{
     height: 53px;
     padding-top: 10px;
@@ -22,9 +28,15 @@ body {
 .chating-wrapper{
     background-color:#fff;
     font-size: 80px;
+
+    width: 100%;
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 .chating-wrapper input{
     background-color:#fff;
