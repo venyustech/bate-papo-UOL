@@ -1,0 +1,43 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background-color: #E5E5E5;
+}
+
+.users ion-icon{
+    font-size: 64px;
+    color:black;
+}
+.logo-wrapper{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+.logo-uol{
+    height: 53px;
+    padding-top: 10px;
+}
+
+.chating-wrapper{
+    background-color:#fff;
+    font-size: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chating-wrapper input{
+    background-color:#fff;
+    height: 80px;
+    width: 100%;
+ 
+}
+.send-message{
+    background-color: #fff;
+}
+.send-message ion-icon{
+    font-size: 42px;
+    font-style: italic;
+    padding-right: 30px;
+    background-color: #fff;
+}
