@@ -2,7 +2,7 @@ body {
     font-family: "Roboto", sans-serif;
     background-color: #E5E5E5;
 }
-
+/*header:*/
 .users ion-icon{
     font-size: 64px;
     color:black;
@@ -24,7 +24,39 @@ body {
     height: 53px;
     padding-top: 10px;
 }
+/*main:*/
+main{
+    padding-top: 70px;
+    padding-bottom: 85px;
+    display: flex;
+    flex-direction: column;    
 
+}
+.box-chat{
+    height: 40px;
+    border-radius: 2px;
+    margin-top: 6px;
+    padding: 0% 3%;
+    display: flex;
+    align-items: center;
+}
+.status-message{
+    background-color:#DCDCDC;
+;
+}
+.public-message{
+    background-color:#FFFFFF;
+;
+}
+.private-message{
+    background-color: #FFDEDE;
+;
+}
+.hide{
+    display: none;
+}
+
+/*footer:*/
 .chating-wrapper{
     background-color:#fff;
     font-size: 80px;
