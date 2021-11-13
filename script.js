@@ -17,7 +17,7 @@ function handleSuccess(answer){
     console.log(answer);
     alert('usuariologado')
     isUserOnline();
-    //setInterval(isUserOnline, 5000); //Schedule isUSerOnline to run periodically every 1 second
+    setInterval(isUserOnline, 3000); //Schedule isUSerOnline to run periodically every 3 second
 }
 function handleError(error){
     let errorHandled = true;
@@ -26,7 +26,7 @@ function handleError(error){
 function isUserOnline(){
     const promisse = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {name: userInput});
 
-    promisse.then(loadingChat); 
+    promisse.then(userOnline); 
     promisse.catch(userOffline); //fazer nada??
 }
 function userOffline(answer)
@@ -34,7 +34,8 @@ function userOffline(answer)
     console.log(answer.response);
     alert('error#1 - Usuario offline');
 }
-function loadingChat(answer){  
+
+function userOnline(answer){  
     const promisse = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     promisse.then(chatLoaded); // when request returns successfully
     promisse.catch(loadingChatError); // when an error occurs in the request
@@ -42,11 +43,12 @@ function loadingChat(answer){
 function loadingChatError(error){
     alert('error#2 - Nao foi possivel carregar chat');
 }
+
 function chatLoaded(answer){
-    console.log(answer);
+    console.log(answer)
     const chat = answer.data
     const chatLoading = document.querySelector("main");
-
+    chatLoading.innerHTML = "";
     for (let i = 0; i < chat.length; i++) {
         if(chat[i].type === 'status'){
             chatLoading.innerHTML += `<div class="status-message box-chat">
