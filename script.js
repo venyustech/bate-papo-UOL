@@ -37,8 +37,8 @@ function userOffline(answer)
 
 function userOnline(answer){  
     const promisse = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
-    promisse.then(chatLoaded); // when request returns successfully
-    promisse.catch(loadingChatError); // when an error occurs in the request
+    promisse.then(chatLoaded); 
+    promisse.catch(loadingChatError); 
 }
 function loadingChatError(error){
     alert('error#2 - Nao foi possivel carregar chat');
@@ -52,19 +52,39 @@ function chatLoaded(answer){
     for (let i = 0; i < chat.length; i++) {
         if(chat[i].type === 'status'){
             chatLoading.innerHTML += `<div class="status-message box-chat" id = "c${i}">
-            <p>(${chat[i].time}) <strong>${chat[i].from}</strong> ${chat[i].text}</p>
+            <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> ${chat[i].text}</p>
             </div>`;
         }
         else if(chat[i].type === 'message'){
             chatLoading.innerHTML += `<div class="public-message box-chat" id = "c${i}">
-            <p>(${chat[i].time}) <strong>${chat[i].from}</strong> para Todos: ${chat[i].text}</p>
+            <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> para <span class = "to">${chat[i].to}:</span> ${chat[i].text}</p>
             </div>`;
         }else if(chat[i].type === 'private_message'){
             chatLoading.innerHTML += `<div class="private-message box-chat" id = "c${i}">
-            <p>(${chat[i].time}) <strong>${chat[i].from}</strong> reservadamente para ${chat[i].to}: ${chat[i].text}</p>
+            <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> reservadamente para <span class = "to">${chat[i].to}:</span> ${chat[i].text}</p>
             </div>`;
         }
     }
     let scrollInto = document.querySelector("#c99"); //DEIXAR INDEX NAO FIXO?????????????
     scrollInto.scrollIntoView();
 }
+
+function sendMessage(){
+    const inputSendMessage = document.querySelector("#sendMessage");
+
+    const objMessage = {
+        from: userInput,
+	    to: "Todos",
+	    text: inputSendMessage.value,
+	    type: "message" // ou "private_message" para o bônus
+    }
+    const promisse = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages",objMessage);
+    promisse.then(handleSendSuccess); // when request returns successfully
+    promisse.catch(handleSendError); // when an error occurs in the request
+}
+function handleSendError(error){
+    console.log(error.response);
+}
+function handleSendSuccess(answer){
+    isUserOnline();
+} 

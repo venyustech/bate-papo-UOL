@@ -88,3 +88,6 @@ main{
     height: 100%;
     width: 15%;
 }
+.to, .from{
+    font-weight: bold;
+}
