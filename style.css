@@ -1,6 +1,6 @@
 body {
     font-family: "Roboto", sans-serif;
-    background-color: #E5E5E5;
+    background-color: #f3f3f3;
 }
 /*header:*/
 .users ion-icon{
@@ -71,23 +71,38 @@ main{
     left: 0;
 }
 .chating-wrapper input{
-    background-color: none;
+    all:unset;
+    box-sizing: border-box;
+
     width: 100%;
     height: 100%;
-    border: none;
+    
+    font-weight: none;
     font-style: italic;
     font-size: 20px;
     padding-left: 16px;
 
 }
 .chating-wrapper button{
-    border: none;
-    background: rgb(192, 194, 192);
-    font-size: 36px;
-    padding: 8px;
+    all:unset;
+    box-sizing: border-box;
+    background:#fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 50px;
     height: 100%;
-    width: 15%;
+    width: 10%;
+}
+button:hover{
+    background-color: #929090;
 }
 .to, .from{
-    font-weight: bold;
+    font-weight: 900;
+}
+
+.hours{
+    color: #929090;
 }
