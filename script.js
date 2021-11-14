@@ -51,19 +51,20 @@ function chatLoaded(answer){
     chatLoading.innerHTML = "";
     for (let i = 0; i < chat.length; i++) {
         if(chat[i].type === 'status'){
-            chatLoading.innerHTML += `<div class="status-message box-chat">
-                <p>(${chat[i].time}) <strong>${chat[i].from}</strong> ${chat[i].text}</p>
-                </div>`;
+            chatLoading.innerHTML += `<div class="status-message box-chat" id = "c${i}">
+            <p>(${chat[i].time}) <strong>${chat[i].from}</strong> ${chat[i].text}</p>
+            </div>`;
         }
         else if(chat[i].type === 'message'){
-            chatLoading.innerHTML += `<div class="public-message box-chat">
-                                        <p>(${chat[i].time}) <strong>${chat[i].from}</strong> para Todos: ${chat[i].text}</p>
-                                      </div>`;
+            chatLoading.innerHTML += `<div class="public-message box-chat" id = "c${i}">
+            <p>(${chat[i].time}) <strong>${chat[i].from}</strong> para Todos: ${chat[i].text}</p>
+            </div>`;
         }else if(chat[i].type === 'private_message'){
-            chatLoading.innerHTML += `<div class="private-message box-chat">
-                                        <p>(${chat[i].time}) <strong>${chat[i].from}</strong> reservadamente para ${chat[i].to}: ${chat[i].text}</p>
-                                      </div>`;
+            chatLoading.innerHTML += `<div class="private-message box-chat" id = "c${i}">
+            <p>(${chat[i].time}) <strong>${chat[i].from}</strong> reservadamente para ${chat[i].to}: ${chat[i].text}</p>
+            </div>`;
         }
     }
-
+    let scrollInto = document.querySelector("#c99"); //DEIXAR INDEX NAO FIXO?????????????
+    scrollInto.scrollIntoView();
 }
