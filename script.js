@@ -1,7 +1,7 @@
     let userInput;
 function signUser(errorHandled){
     if(errorHandled === true)
-        userInput = prompt("Vish...Esse nome já esta em uso\nEscreva outro nome");
+        userInput = prompt("Vish...Esse nome é permitido!\nEscreva outro nome");
     else
         userInput = prompt("Escreva seu nome");
 
@@ -46,17 +46,17 @@ function chatLoaded(answer){
     chatLoading.innerHTML = "";
     for (let i = 0; i < chat.length; i++){
         if(chat[i].type === 'status'){
-            chatLoading.innerHTML += `<div class="status-message box-chat" id = "c${i}" data-identifier="message">
+            chatLoading.innerHTML += `<div class="status-message box-chat" data-identifier="message">
             <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> ${chat[i].text}</p>
             </div>`;
         }
-        else if(chat[i].type === 'message'){
-            chatLoading.innerHTML += `<div class="public-message box-chat" id = "c${i}" data-identifier="message">
+        else if(chat[i].type === 'message' && chat[i].to === 'Todos'){
+            chatLoading.innerHTML += `<div class="public-message box-chat" data-identifier="message">
             <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> para <span class = "to">${chat[i].to}:</span> ${chat[i].text}</p>
             </div>`;
         }
         else if((chat[i].type === 'private_message')  && (chat[i].from === userInput ||  chat[i].to === userInput)){
-            chatLoading.innerHTML += `<div class="private-message box-chat" id = "c${i}" data-identifier="message">
+            chatLoading.innerHTML += `<div class="private-message box-chat" data-identifier="message">
             <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> reservadamente para <span class = "to">${chat[i].to}:</span> ${chat[i].text}</p>
             </div>`;
         }
@@ -80,6 +80,8 @@ function sendMessage(){
 function handleSendError(error){
     console.log(error.response);
 }
-function handleSendSuccess(answer){
+function handleSendSuccess(answer){ 
     isUserOnline();
+    const message= document.querySelector("input");
+    message.value = "";
 } 
