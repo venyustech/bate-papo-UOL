@@ -1,6 +1,6 @@
     let userInput;
-function signUser(errorHandled){
-    
+function signUser(errorHandled)
+{
     if(errorHandled === true)
         userInput = prompt("Vish...Esse nome já esta em uso\nEscreva outro nome");
     else
@@ -13,54 +13,64 @@ function signUser(errorHandled){
 }
 signUser(false);
 
-function handleSuccess(answer){
+function handleSuccess(answer)
+{
     console.log(answer);
-    alert('usuariologado')
     isUserOnline();
     setInterval(isUserOnline, 3000); //Schedule isUSerOnline to run periodically every 3 second
 }
-function handleError(error){
+function handleError(error)
+{
     let errorHandled = true;
     signUser(errorHandled);
 }
-function isUserOnline(){
-    const promisse = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {name: userInput});
-
-    promisse.then(userOnline); 
-    promisse.catch(userOffline); //fazer nada??
-}
-function userOffline(answer)
+function isUserOnline()
 {
-    console.log(answer.response);
+    const promisse = axios.post('https://mock-api.driven.com.br/api/v4/uol/status', {name: userInput});
+    promisse.then(userOnline); 
+    promisse.catch(userOffline);
+}
+function userOffline(error)
+{
+    console.log(error.response);
     alert('error#1 - Usuario offline');
 }
 
-function userOnline(answer){  
+function userOnline(answer)
+{  
     const promisse = axios.get("https://mock-api.driven.com.br/api/v4/uol/messages");
     promisse.then(chatLoaded); 
     promisse.catch(loadingChatError); 
 }
-function loadingChatError(error){
+function loadingChatError(error)
+{
+    console.log(error.response);
     alert('error#2 - Nao foi possivel carregar chat');
 }
 
-function chatLoaded(answer){
+function chatLoaded(answer)
+{
     console.log(answer)
     const chat = answer.data
     const chatLoading = document.querySelector("main");
     chatLoading.innerHTML = "";
-    for (let i = 0; i < chat.length; i++) {
-        if(chat[i].type === 'status'){
-            chatLoading.innerHTML += `<div class="status-message box-chat" id = "c${i}">
+    for (let i = 0; i < chat.length; i++) 
+    {
+        if(chat[i].type === 'status')
+        {
+            chatLoading.innerHTML += `<div class="status-message box-chat" id = "c${i}" data-identifier="message"">
             <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> ${chat[i].text}</p>
             </div>`;
         }
-        else if(chat[i].type === 'message'){
-            chatLoading.innerHTML += `<div class="public-message box-chat" id = "c${i}">
+        else if(chat[i].type === 'message')
+        {
+            chatLoading.innerHTML += `<div class="public-message box-chat" id = "c${i}" data-identifier="message"">
             <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> para <span class = "to">${chat[i].to}:</span> ${chat[i].text}</p>
             </div>`;
-        }else if(chat[i].type === 'private_message'){
-            chatLoading.innerHTML += `<div class="private-message box-chat" id = "c${i}">
+        }
+        else if((chat[i].type === 'private_message')  && (chat[i].from === userInput ||  chat[i].to === userInput))
+        {
+            chatLoading.innerHTML += `<div class="private-message box-chat" id = "c${i}" data-identifier="message"">
             <p><span class = "hours">(${chat[i].time})</span> <span class = "from">${chat[i].from}</span> reservadamente para <span class = "to">${chat[i].to}:</span> ${chat[i].text}</p>
             </div>`;
         }
@@ -69,22 +79,26 @@ function chatLoaded(answer){
     scrollInto.scrollIntoView();
 }
 
-function sendMessage(){
-    const inputSendMessage = document.querySelector("#sendMessage");
-
-    const objMessage = {
+function sendMessage()
+{
+    const inputSendMessage = document.querySelector("#send-message");
+    const objMessage = 
+    {
         from: userInput,
 	    to: "Todos",
 	    text: inputSendMessage.value,
 	    type: "message" // ou "private_message" para o bônus
     }
     const promisse = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages",objMessage);
-    promisse.then(handleSendSuccess); // when request returns successfully
-    promisse.catch(handleSendError); // when an error occurs in the request
+    promisse.then(handleSendSuccess); 
+    promisse.catch(handleSendError); 
 }
-function handleSendError(error){
+function handleSendError(error)
+{
     console.log(error.response);
 }
-function handleSendSuccess(answer){
+function handleSendSuccess(answer)
+{
     isUserOnline();
+
 } 
